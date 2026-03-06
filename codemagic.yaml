@@ -40,6 +40,12 @@ workflows:
             -derivedDataPath build \
             CODE_SIGNING_ALLOWED=NO
 
+      - name: Show build output
+        script: |
+                ls ios/build
+                ls ios/build/Build
+                ls ios/build/Build/Products
+                ls ios/build/Build/Products/Release-iphoneos
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log

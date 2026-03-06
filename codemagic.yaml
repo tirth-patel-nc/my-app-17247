@@ -37,9 +37,10 @@ workflows:
             -scheme "$SCHEME" \
             -sdk iphoneos \
             -configuration Release \
+            -derivedDataPath build \
             CODE_SIGNING_ALLOWED=NO
 
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
-      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/Products/Release-iphoneos/*.app
+      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app

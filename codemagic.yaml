@@ -34,23 +34,11 @@ workflows:
 
           xcodebuild \
             -workspace "$WORKSPACE" \
-            -scheme "$SCHEME" \
+            -scheme "myapp17247" \
             -sdk iphoneos \
             -configuration Release \
-            -derivedDataPath build \
             CODE_SIGNING_ALLOWED=NO
 
-      - name: Show build output
-        script: |
-                ls ios/build
-                ls ios/build/Build
-                ls ios/build/Build/Products
-                ls ios/build/Build/Products/Release-iphoneos
-                echo "Checking Release-iphoneos"
-                ls ios/build/Build/Products/Release-iphoneos
-
-                echo "Searching for .app"
-                find ios/build -name "*.app"
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log

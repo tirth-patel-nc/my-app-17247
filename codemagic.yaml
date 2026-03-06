@@ -39,11 +39,6 @@ workflows:
             -configuration Release \
             CODE_SIGNING_ALLOWED=NO
 
-          xcode-project build-ipa \
-            --workspace "$CM_BUILD_DIR/ios/$XCODE_WORKSPACE" \
-            --scheme "$XCODE_SCHEME" \
-            --archive-xcargs "CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO"
-
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log

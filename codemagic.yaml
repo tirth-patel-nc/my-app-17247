@@ -1,0 +1,48 @@
+workflows:
+  react-native-ios:
+    name: React Native iOS Build
+    max_build_duration: 60
+
+    environment:
+      node: 18
+
+    scripts:
+      - name: Install npm dependencies
+        script: |
+          npm install --legacy-peer-deps
+
+      - name: Install CocoaPods
+        script: |
+          cd ios
+          pod install --repo-update
+          ls Pods
+          cd ..
+
+      - name: Show iOS files (debug)
+        script: |
+          ls ios
+
+      - name: Build iOS app
+        script: |
+          cd ios
+          WORKSPACE=$(find . -maxdepth 1 -type d -name "*.xcworkspace" | head -n 1 | sed 's|./||')
+          SCHEME=$(xcodebuild -list -workspace "$WORKSPACE" | grep -A 1 "Schemes:" | tail -n 1 | xargs)
+
+          echo "Workspace: $WORKSPACE"
+          echo "Scheme: $SCHEME"
+
+          xcodebuild \
+            -workspace "$WORKSPACE" \
+            -scheme "$SCHEME" \
+            -sdk iphoneos \
+            -configuration Release \
+            CODE_SIGNING_ALLOWED=NO
+
+          xcodebuild -exportArchive \
+            -archivePath build/App.xcarchive \
+            -exportOptionsPlist ExportOptions.plist \
+            -exportPath build
+
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log

@@ -10,6 +10,7 @@ workflows:
         - ~/.gradle/caches
         - ~/.gradle/caches
     environment:
+      xcode: 26.4
       ios_signing:
         distribution_type: development
         bundle_identifier: com.anonymous.myapp17247

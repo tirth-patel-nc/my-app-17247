@@ -7,8 +7,7 @@ workflows:
       app_store_connect: myapp17247
     cache:
       cache_paths:
-        - ~/.gradle/caches
-        - ~/.gradle/caches
+        - ~/.grale/caches
     environment:
       xcode: 26.4
       ios_signing:

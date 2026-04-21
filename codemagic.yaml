@@ -25,9 +25,10 @@ workflows:
           xcodes runtimes
       - name: Install npm dependencies
         script: | 
-          npm install
+          xcrun simctl list runtimes | grep "iOS 18.6"
       - name: Run Expo Prebuild
         script: | 
+          npm install
           npx expo prebuild
       - name: Install CocoaPods dependencies
         script: | 

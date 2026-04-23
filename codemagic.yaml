@@ -15,12 +15,9 @@ workflows:
         XCODE_WORKSPACE: "myapp17247.xcworkspace" 
         XCODE_SCHEME: "myapp17247" 
     scripts:
-      - name: Select Xcode
-        script: |
-          xcode-select -p
       - name: Install Runtime
         script: |
-          sudo xcodes runtimes install "iOS 18.6"
+          xcodebuild -downloadPlatform iOS -version 18.6
           xcrun simctl list runtimes
       - name: Run Expo Prebuild
         script: | 

@@ -17,8 +17,14 @@ workflows:
     scripts:
       - name: Install Runtime
         script: |
-          xcodebuild -downloadPlatform iOS -version 18.6
-          xcrun simctl list runtimes
+          set -e
+          xcrun simctl list >/dev/null 2>&1 || true
+          xcodebuild -downloadPlatform iOS -buildVersion 18.6
+          export UUID=$(xcrun simctl create "iPhone 16 Pro (iOS 18)" \
+            "com.apple.CoreSimulator.SimDeviceType.iPhone-16-Pro" \
+            "com.apple.CoreSimulator.SimRuntime.iOS-18-6")
+          xcrun simctl boot $UUID
+          xcrun simctl list | grep "16 Pro (iOS 18)"
       - name: Run Expo Prebuild
         script: | 
           npm install
